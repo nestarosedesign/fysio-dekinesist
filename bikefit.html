@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="images/favicon-06.svg?v=2">
+    <title>BikeFit - De Kinesist</title>
+    
+    <link href="./css/main.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f7f7;
+            --text: #333;
+            --accent: #ec8c23;
+        }
+
+        * {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .service-page {
+            padding: 0;
+            max-width: 100%;
+        }
+
+        /* Hero Section - Keep original styling */
+        .hero-banner {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            align-items: center;
+            min-height: 80vh;
+            overflow: hidden;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .hero-banner::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(0, 0, 0, 0.82) 24%, rgba(0, 0, 0, 0.38) 68%);
+            z-index: 1;
+        }
+
+        .hero-banner::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('images/bikefit.webp');
+            background-size: cover;
+            background-position: center;
+            filter: saturate(1.08);
+            transform: scale(1.02);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 6vw, 5rem);
+            max-width: 720px;
+        }
+
+        .hero-kicker {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            margin-top: 4rem;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 3.8rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .hero-content p {
+            color: rgba(255, 255, 255, 0.86);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+            margin-top: 1.25rem;
+        }
+
+        .hero-pill {
+            background: rgba(236, 140, 35, 0.14);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            border: 1px solid rgba(236, 140, 35, 0.4);
+        }
+
+        /* Clean sections with alternating backgrounds */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 3rem);
+        }
+
+        .section:nth-child(even) {
+            background: #fff;
+        }
+
+        .section:nth-child(odd) {
+            background: #f7f7f7;
+        }
+
+        .section h2 {
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            margin-bottom: 1.5rem;
+            color: #333;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .section h3 {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .section p {
+            color: #4a4a4a;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Simple grid layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: clamp(2rem, 4vw, 3rem);
+            align-items: start;
+        }
+
+        /* Simple bullet points */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        ul li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            color: #4a4a4a;
+        }
+
+        ul li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Image styling */
+        .section img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* CTA Button styling */
+        .cta-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--accent);
+            color: #000;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .cta-btn:hover {
+            background: #fff;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        /* Override main.css for fixed buttons */
+        .cta-button {
+            position: fixed !important;
+            top: 15px !important;
+            right: 15px !important;
+            background-color: #ffffff !important;
+            color: #000 !important;
+            padding: 10px 16px !important;
+            text-decoration: none !important;
+            border-radius: 999px !important;
+            font-weight: 700 !important;
+            font-size: clamp(12px, 3vw, 16px) !important;
+            z-index: 1000 !important;
+            transition: all 0.3s ease !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .cta-button:hover {
+            background-color: #ec8c23 !important;
+            color: #000 !important;
+            box-shadow: 0 6px 20px rgba(236, 140, 35, 0.3) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .back-button {
+            position: fixed;
+            top: clamp(15px, 2vw, 20px);
+            left: clamp(15px, 2vw, 20px);
+            background-color: #222;
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: clamp(12px, 3vw, 16px);
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #444;
+        }
+
+        @media (max-width: 640px) {
+            .hero-content h1 {
+                font-size: clamp(2.2rem, 8vw, 3rem);
+            }
+
+            .hero-banner {
+                min-height: 70vh;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script>
+        function goBack() {
+            const scrollPos = sessionStorage.getItem('indexScrollPosition');
+            if (scrollPos) {
+                window.location.href = 'index.html#scroll=' + scrollPos;
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Fixed appointment button - always visible at top right -->
+    <a href="https://agenda.crossuite.com/dekinesist" class="cta-button" target="_blank" rel="noopener noreferrer">MAAK AFSPRAAK</a>
+    
+    <!-- Back button - always visible at top left -->
+    <a onclick="goBack()" class="back-button">← TERUG</a>
+    
+    <main class="service-page">
+        <section class="hero-banner">
+            <div class="hero-content">
+                <h1>BikeFit</h1>
+                <p class="hero-kicker">Optimaliseer jouw wielrenervaring</p>
+                <p>Heb je last van ongemak, blessures of het gevoel dat je prestaties achterblijven? Een goed afgestelde fiets maakt het verschil tussen tegenwerken en genieten.</p>
+                <div class="hero-meta">
+                    <span class="hero-pill">Fiets in topvorm</span>
+                    <span class="hero-pill">Physio BikeFit Level 3 en 4</span>
+                    <span class="hero-pill">Twee uur intensieve sessie</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="grid-2">
+                <div>
+                    <h2>Meer dan een standaard BikeFit</h2>
+                    <p>Als gecertificeerd sportfysiotherapeut met Physio BikeFit Level 3 en 4 kijkt Ron Beurskens verder dan alleen instellingen. KineBikeFit is geen losse afstelling, maar een integrale optimalisatie van jouw fiets, lichaam en houding – gericht op comfort, herstel en prestaties.</p>
+                </div>
+                <div>
+                    <h3>Minder klachten, beter presteren</h3>
+                    <p>Wielerblessures zoals knie- en rugklachten kunnen je plezier en vooruitgang beperken. Onze BikeFit is niet alleen bedoeld om harder te rijden, maar ook om blessures te verminderen en een gezonde, comfortabele fietspositie te creëren.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="grid-2">
+                <img src="images/bikefit3.webp" alt="KineBikeFit optimalisatie">
+                <div>
+                    <h2>Jouw fiets als verlengstuk van je lichaam</h2>
+                    <p>Wanneer fiets en lichaam perfect op elkaar zijn afgestemd, voelt je racefiets als een natuurlijk verlengstuk van jezelf. Bij KineBikeFit stemmen we niet alleen de fiets af, maar houden we ook rekening met biomechanica, houding en comfort, zodat jij optimaal kunt presteren op de weg.</p>
+                    <p>Dit zorgt niet alleen voor meer comfort, maar ook voor betere efficiëntie, minder energieverspilling en – essentieel – aanzienlijk minder blessurerisico op lange termijn.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Trap je klachten weg</h2>
+            <p>De BikeFit kan los worden geboekt of worden ingezet als onderdeel van een sportfysiotherapeutisch behandeltraject bij wielrenblessures. 
+                Binnen deze begeleiding vormt de BikeFit een belangrijke basis voor pijnvrij fietsen en duurzame prestatieverbetering. 
+                Zo pakken we niet alleen de fietspositie aan, maar ook de onderliggende oorzaak van klachten. Maak eenvoudig een afspraak.</p>
+
+            <a href="https://agenda.crossuite.com/dekinesist" class="cta-btn" target="_blank" rel="noopener noreferrer">MAAK BIKEFIT AFSPRAAK</a>
+        </section>
+
+        <section class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>Praktische informatie</h3>
+                    <p>Een individuele KineBikeFit-sessie bij De Kinesist is een uitgebreide sessie van twee uur, inclusief:</p>
+                    <ul>
+                        <li>Analyse en afstelling</li>
+                        <li>Directe aanpassingen waar mogelijk</li>
+                        <li>Een uitgebreid rapport</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Kosten</h3>
+                    <p style="font-size: 1.5em; color: var(--accent); font-weight: 700; margin: 0;">€186.50</p>
+                    <p>Gebruik je de BikeFit als onderdeel van een sportfysiotherapeutisch traject? Dan kan dit tegen gereduceerd tarief worden ingezet.
+                    </p>
+                    <p style="font-weight: 600;">Neem contact met ons op voor meer informatie.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="./js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lees het blog van De Kinesist. Artikelen over peesrevalidatie, sportblessures en trainingsstrategie voor sporters.">
+    <meta property="og:title" content="Blog - De Kinesist">
+    <meta property="og:description" content="Lees het blog van De Kinesist. Artikelen over peesrevalidatie, sportblessures en trainingsstrategie voor sporters.">
+    <link rel="icon" type="image/svg+xml" href="images/favicon-06.svg?v=2">
+    <title>Blog - De Kinesist</title>
+    
+    <link href="./css/main.css" rel="stylesheet">
+    <style>
+        /* Blog Page Specific Styles */
+        .blog-page-header {
+            padding: clamp(3rem, 8vw, 5rem) clamp(2rem, 5vw, 3rem);
+            background: #fff;
+            text-align: left;
+        }
+
+        .blog-page-header h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 1000;
+            color: #ec8c23;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0;
+        }
+
+        .blog-page-content {
+            padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 5vw, 3rem);
+            background: #fff;
+        }
+
+        /* Hero Section (like diensten pages) */
+        .hero-banner {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: 60vh;
+            overflow: hidden;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .hero-banner::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(0, 0, 0, 0.82) 24%, rgba(0, 0, 0, 0.38) 68%);
+            z-index: 1;
+        }
+
+        .hero-banner::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('images/blog.webp');
+            background-size: cover;
+            background-position: center;
+            filter: saturate(1.08);
+            transform: scale(1.02);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: clamp(5rem, 5vw, 4rem) clamp(2rem, 6vw, 5rem);
+            max-width: 720px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 3.8rem);
+            line-height: 1.1;
+            margin-bottom: 0.3rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* New simple blog list layout */
+        .blog-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        .blog-card {
+            display: grid;
+            grid-template-columns: minmax(220px, 320px) 1fr;
+            gap: clamp(1rem, 3vw, 1.5rem);
+            align-items: start;
+            padding: clamp(1rem, 2.5vw, 1.5rem);
+            border: 1px solid #eee;
+            border-radius: 12px;
+            background: #fff;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .blog-card-image {
+            width: 100%;
+            height: 220px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .blog-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .blog-card-date {
+            font-size: 0.85rem;
+            color: #ec8c23;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-card h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: #000;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .blog-card-excerpt {
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            line-height: 1.6;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .blog-card {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-card-image {
+                height: 180px;
+            }
+        }
+
+        .blog-carousel-wrapper {
+            position: relative;
+            width: 100%;
+            padding: clamp(2rem, 4vw, 3rem) 0;
+        }
+
+        .blog-carousel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(1rem, 3vw, 2rem);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0 clamp(3rem, 8vw, 5rem);
+        }
+
+        .blog-carousel-item {
+            flex: 0 0 auto;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Side items (left and right) */
+        .blog-carousel-item.side {
+            width: clamp(150px, 20vw, 250px);
+            opacity: 0.5;
+            filter: grayscale(30%);
+        }
+
+        .blog-carousel-item.side .blog-carousel-image {
+            height: clamp(150px, 20vw, 250px);
+        }
+
+        .blog-carousel-item.side h3 {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            line-height: 1.3;
+        }
+
+        .blog-carousel-item.side .blog-carousel-date,
+        .blog-carousel-item.side .blog-carousel-excerpt,
+        .blog-carousel-item.side .blog-read-more {
+            display: none;
+        }
+
+        /* Center item (active) */
+        .blog-carousel-item.center {
+            width: clamp(280px, 45vw, 500px);
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        .blog-carousel-item.center .blog-carousel-image {
+            height: clamp(250px, 35vw, 400px);
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-carousel-item.center h3 {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        .blog-carousel-image {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-carousel-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .blog-carousel-item:hover .blog-carousel-image img {
+            transform: scale(1.05);
+        }
+
+        .blog-carousel-date {
+            font-size: 0.8rem;
+            color: #ec8c23;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-carousel-item.center .blog-carousel-date {
+            font-size: 0.85rem;
+        }
+
+        .blog-carousel-item h3 {
+            font-weight: 700;
+            color: #000;
+            transition: color 0.3s ease;
+        }
+
+        .blog-carousel-excerpt {
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .blog-read-more {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #000;
+            color: #fff;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: fit-content;
+        }
+
+        .blog-read-more:hover {
+            background: #ec8c23;
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        .blog-carousel-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding: 0 clamp(1rem, 2vw, 2rem);
+        }
+
+        .blog-carousel-arrow {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .blog-carousel-arrow:hover {
+            background: #ec8c23;
+            color: #000;
+            transform: scale(1.1);
+        }
+
+        .blog-carousel-arrow:active {
+            transform: scale(0.95);
+        }
+
+        @media (max-width: 1024px) {
+            .blog-carousel {
+                padding: 0 clamp(2rem, 5vw, 3rem);
+            }
+
+            .blog-carousel-item.side {
+                width: clamp(120px, 15vw, 180px);
+            }
+
+            .blog-carousel-item.center {
+                width: clamp(200px, 40vw, 380px);
+            }
+
+            .blog-carousel-item.side .blog-carousel-image {
+                height: clamp(120px, 15vw, 180px);
+            }
+
+            .blog-carousel-item.center .blog-carousel-image {
+                height: clamp(200px, 30vw, 350px);
+                margin-bottom: 1rem;
+            }
+
+            .blog-carousel-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-carousel-wrapper {
+                padding: 1.5rem 0;
+            }
+
+            .blog-carousel {
+                gap: 0.5rem;
+                padding: 0 clamp(1.5rem, 3vw, 2rem);
+            }
+
+            .blog-carousel-item.side {
+                width: clamp(80px, 12vw, 120px);
+                opacity: 0.4;
+            }
+
+            .blog-carousel-item.side .blog-carousel-image {
+                height: clamp(80px, 12vw, 120px);
+            }
+
+            .blog-carousel-item.center {
+                width: clamp(150px, 35vw, 250px);
+            }
+
+            .blog-carousel-item.center .blog-carousel-image {
+                height: clamp(150px, 25vw, 250px);
+                margin-bottom: 0.8rem;
+            }
+
+            .blog-carousel-item.center h3 {
+                font-size: clamp(1rem, 2.5vw, 1.3rem);
+                margin-bottom: 0.8rem;
+            }
+
+            .blog-carousel-excerpt {
+                font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+                margin-bottom: 1rem;
+            }
+
+            .blog-read-more {
+                font-size: 0.75rem;
+                padding: 8px 16px;
+            }
+
+            .blog-carousel-arrow {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-carousel-wrapper {
+                padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+            }
+
+            .blog-carousel {
+                gap: 0.5rem;
+                padding: clamp(1rem, 3vw, 1.5rem);
+            }
+
+            .blog-carousel-item.side {
+                width: clamp(80px, 12vw, 120px);
+            }
+
+            .blog-carousel-item.side .blog-carousel-image {
+                height: clamp(80px, 12vw, 120px);
+            }
+
+            .blog-carousel-item.center .blog-carousel-image {
+                height: clamp(200px, 30vw, 300px);
+                margin-bottom: 1.2rem;
+            }
+
+            .blog-carousel-item.center h3 {
+                font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+                margin-bottom: 0.8rem;
+            }
+
+            .blog-carousel-date {
+                font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+                margin-bottom: 0.5rem;
+            }
+
+            .blog-carousel-excerpt {
+                font-size: clamp(0.85rem, 1.6vw, 0.95rem);
+                line-height: 1.5;
+                margin-bottom: 0;
+            }
+
+            .blog-carousel-controls {
+                margin-top: 1.5rem;
+                gap: 1rem;
+            }
+
+            .blog-carousel-arrow {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-page-header {
+                padding: clamp(2rem, 5vw, 3rem) clamp(1.5rem, 4vw, 2rem);
+            }
+
+            .blog-page-header h1 {
+                font-size: clamp(2.2rem, 8vw, 3.5rem);
+                letter-spacing: 1px;
+            }
+
+            .blog-page-content {
+                padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.5rem, 4vw, 2rem);
+            }
+
+            .blog-carousel-wrapper {
+                padding: clamp(1rem, 2vw, 1.5rem) 0;
+            }
+
+            .blog-carousel {
+                gap: 0.3rem;
+                padding: clamp(0.75rem, 2vw, 1rem);
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .blog-carousel-item.side {
+                display: none;
+            }
+
+            .blog-carousel-item.center {
+                width: 100% !important;
+                max-width: 100%;
+                opacity: 1;
+                filter: none;
+            }
+
+            .blog-carousel-item.center .blog-carousel-image {
+                height: 220px;
+                margin-bottom: 1rem;
+                border-radius: 6px;
+            }
+
+            .blog-carousel-date {
+                font-size: 0.85rem;
+                color: #666;
+                margin-bottom: 0.5rem;
+            }
+
+            .blog-carousel-item.center h3 {
+                font-size: 1.3rem;
+                font-weight: 700;
+                line-height: 1.35;
+                margin-bottom: 0.8rem;
+            }
+
+            .blog-carousel-excerpt {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                color: #333;
+                margin-bottom: 0;
+            }
+
+            .blog-carousel-controls {
+                margin-top: 1.5rem;
+                gap: 0.8rem;
+                justify-content: center;
+                padding: 0 clamp(1rem, 3vw, 1.5rem);
+            }
+
+            .blog-carousel-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed appointment button -->
+    <a href="https://agenda.crossuite.com/dekinesist" class="cta-button" target="_blank" rel="noopener noreferrer">MAAK AFSPRAAK</a>
+    <a href="index.html#blog" class="back-button" style="position: fixed; top: max(15px, env(safe-area-inset-top)); left: max(15px, env(safe-area-inset-left)); z-index: 999; background: #000; color: #fff; padding: 10px 16px; border-radius: 50px; font-weight: 700; font-size: 14px; text-decoration: none; transition: all 0.3s ease;">← TERUG</a>
+    <script>
+        window.addEventListener('pageshow', () => {
+            const savedScroll = sessionStorage.getItem('indexScroll');
+            if (savedScroll) {
+                setTimeout(() => {
+                    window.scrollTo(0, parseInt(savedScroll));
+                    sessionStorage.removeItem('indexScroll');
+                }, 100);
+            }
+        });
+    </script>
+    
+    <main>
+        <!-- Hero Banner Header -->
+        <section class="hero-banner">
+            <div class="hero-content">
+                <h1>BLOG</h1>
+            </div>
+        </section>
+
+        <!-- Blog List (Newest first) -->
+        <section class="blog-page-content">
+            <div class="blog-list">
+                <!-- Blog Post 1 -->
+                <a class="blog-card" href="blogpost1.html">
+                    <div class="blog-card-image">
+                        <img src="images/blogpost1_1.webp" alt="Peesrevalidatie voor sporters">
+                    </div>
+                    <div>
+                        <span class="blog-card-date">13 januari 2026</span>
+                        <h3>De basisprincipes van peesrevalidatie bij sporters</h3>
+                        <p class="blog-card-excerpt">Hoe je pezen écht sterker maakt: wat de wetenschap zegt en wat je als sporter vandaag kunt toepassen. Met progressieve belasting, HSR-principes en evidence-based timing.</p>
+                    </div>
+                </a>
+
+                <!-- Blog Post 2 (DISABLED - uncomment to enable) -->
+                <!-- <a class="blog-card" href="blogpost2.html">
+                    <div class="blog-card-image">
+                        <img src="images/blogpost2_1.webp" alt="[VERVANG MET ARTIKEL TITEL]">
+                    </div>
+                    <div>
+                        <span class="blog-card-date">[VERVANG MET DATUM]</span>
+                        <h3>[VERVANG MET ARTIKEL TITEL]</h3>
+                        <p class="blog-card-excerpt">[VERVANG MET ARTIKEL SAMENVATTING]</p>
+                    </div>
+                </a> -->
+
+                <!-- Blog Post 3 (DISABLED - uncomment to enable) -->
+                <!-- <a class="blog-card" href="blogpost3.html">
+                    <div class="blog-card-image">
+                        <img src="images/blogpost3_1.webp" alt="[VERVANG MET ARTIKEL TITEL]">
+                    </div>
+                    <div>
+                        <span class="blog-card-date">[VERVANG MET DATUM]</span>
+                        <h3>[VERVANG MET ARTIKEL TITEL]</h3>
+                        <p class="blog-card-excerpt">[VERVANG MET ARTIKEL SAMENVATTING]</p>
+                    </div>
+                </a> -->
+
+                <!-- Blog Post 4 (DISABLED - uncomment to enable) -->
+                <!-- <a class="blog-card" href="blogpost4.html">
+                    <div class="blog-card-image">
+                        <img src="images/blogpost4_1.webp" alt="[VERVANG MET ARTIKEL TITEL]">
+                    </div>
+                    <div>
+                        <span class="blog-card-date">[VERVANG MET DATUM]</span>
+                        <h3>[VERVANG MET ARTIKEL TITEL]</h3>
+                        <p class="blog-card-excerpt">[VERVANG MET ARTIKEL SAMENVATTING]</p>
+                    </div>
+                </a> -->
+            </div>
+        </section>
+    </main>
+
+    <script src="./js/main.js"></script>
+</body>
+</html>
+
+    <script src="./js/main.js"></script>
+</body>
+</html>
+
+    <script src="./js/main.js"></script>
+</body>
+</html>

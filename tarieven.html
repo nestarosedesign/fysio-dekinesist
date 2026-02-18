@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="images/favicon-06.svg?v=2">
+    <title>Tarieven - De Kinesist</title>
+    
+    <link href="./css/main.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f7f7;
+            --text: #333;
+            --accent: #ec8c23;
+        }
+
+        * {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .service-page {
+            padding: 0;
+            max-width: 100%;
+            padding-bottom: clamp(8rem, 15vw, 12rem);
+        }
+
+        /* Hero Section */
+        .hero-banner {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: 60vh;
+            overflow: hidden;
+            background: #0a0a0a;
+            color: #fff;
+        }
+
+        .hero-banner::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(0, 0, 0, 0.82) 24%, rgba(0, 0, 0, 0.38) 68%);
+            z-index: 1;
+        }
+
+        .hero-banner::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('images/been.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: saturate(1.08);
+            transform: scale(1.02);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: clamp(5rem, 5vw, 4rem) clamp(2rem, 6vw, 5rem);
+            max-width: 720px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 6vw, 3.8rem);
+            line-height: 1.1;
+            margin-bottom: 0.3rem;
+            color: #fff;
+        }
+
+        .hero-content p {
+            color: rgba(255, 255, 255, 0.86);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Section styling */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 3rem);
+        }
+
+        .section:nth-child(even) {
+            background: #fff;
+        }
+
+        .section:nth-child(odd) {
+            background: #f7f7f7;
+        }
+
+        .section h2 {
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            margin-bottom: 1.5rem;
+            color: #333;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .section h3 {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            margin-bottom: 1rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .section p {
+            color: #4a4a4a;
+            margin-bottom: 0.2rem;
+            line-height: 1.7;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: clamp(2rem, 4vw, 3rem);
+            align-items: start;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .tariff-cta {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 12px 24px;
+            background: var(--accent);
+            color: #000;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .tariff-cta:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .back-button {
+            position: fixed;
+            top: clamp(15px, 2vw, 20px);
+            left: clamp(15px, 2vw, 20px);
+            background-color: #222;
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: clamp(12px, 3vw, 16px);
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #444;
+        }
+
+        .tariff-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(1rem, 3vw, 1.5rem);
+            margin: 2rem 0;
+        }
+
+        .tariff-item {
+            background: #fff;
+            padding: clamp(1.5rem, 3vw, 2rem);
+            border-radius: 12px;
+            color: #4a4a4a;
+            line-height: 1.6;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tariff-item:hover {
+            box-shadow: 0 4px 16px rgba(236, 140, 35, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .tariff-item .title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0;
+        }
+
+        .tariff-item .description {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .tariff-item.active .description {
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            .tariff-list {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: clamp(1.5rem, 3vw, 2rem) clamp(1.5rem, 3vw, 2rem);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .tariff-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .maak-afspraak-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #ec8c23;
+            color: #000;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .maak-afspraak-btn:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+    </style>
+    <script>
+        // Handle back button click with scroll position restoration
+        function goBack() {
+            const scrollPos = sessionStorage.getItem('indexScrollPosition');
+            if (scrollPos) {
+                window.location.href = 'index.html#scroll=' + scrollPos;
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Fixed appointment button -->
+    <a href="https://agenda.crossuite.com/dekinesist" class="cta-button" target="_blank" rel="noopener noreferrer">MAAK AFSPRAAK</a>
+
+    <a onclick="goBack()" class="back-button">← TERUG</a>
+
+    <main class="service-page">
+        <section class="hero-banner">
+            <div class="hero-content">
+                <h1>Tarieven</h1>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Uitleg vergoeding fysiotherapie</h2>
+            <p>De Kinesist behandelt, bewust, zonder contracten met zorgverzekeraars.</p>
+        </section>
+
+        <section class="section">
+            <h3>Vergoeding</h3>
+            <p>Door geen contract te hebben zijn er geen strenge administratieve regels van de zorgverzekeraars en kan ik mij meer richten op het belangrijkste: de cliënt en de behandeling. Ik kies er bewust voor om deze extra tijd in jou te investeren in plaats van administratieve afhandelingen en al mijn klanten waarderen die service. Door contractvrij te werken heb ik ook niets te maken met de behandelindex, wat kan inhouden dat je bij een gecontracteerde praktijk minder behandelingen vergoedt krijgt dan waar u voor verzekerd bent. Worden de behandelingen nu niet vergoed? Jawel!</p>
+        </section>
+
+        <section class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>Aanvullende verzekering</h3>
+                    <p>Wanneer je start met fysiotherapie is de aanvullende verzekering altijd de eerste verzekering van waaruit de kosten vergoed kunnen worden (tenminste vanaf 18-jarige leeftijd). De aanvullende verzekering geeft in de polisvoorwaarden aan voor hoeveel keer of voor welk budget je verzekerd bent voor fysiotherapie. Veelal is deze vergoeding anders voor een zogenaamde; "niet-contractant" zoals De Kinesist. Ondanks dat De Kinesist een niet-contractant is krijg je meestal de fysio behandelingen geheel of gedeeltelijk vergoed, dit is afhankelijk van je aanvullende verzekering, ook dit kun je nalezen in je polis.</p>
+                </div>
+                <div>
+                    <h3>Kinderen tot 18 jaar</h3>
+                    <p>Voor kinderen tot 18 jaar geldt als basisregel dat de eerste 9 tot 18 behandelingen fysiotherapie gedekt worden door de basisverzekering. Daarna kan er vanuit de aanvullende verzekering nog een vergoedingsmogelijkheid zijn, mits men deze aanvullende verzekering heeft afgesloten.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h3>Chronische klacht?</h3>
+            <div class="grid-2">
+                <div>
+                    <p>Uit de basisverzekering wordt fysiotherapie beperkt vergoed. Bij bepaalde aandoeningen waarvoor veel fysiotherapie nodig is, kunnen volwassenen na de 20ste behandeling in aanmerking komen voor vergoeding uit de basisverzekering. Je dient hiervoor een aanvraagformulier bij je zorgverzekering op te vragen. Deze zal vervolgens door ons ingevuld worden en je kunt daarna het verzoek indienen bij je zorgverzekering.</p>
+                </div>
+                <div>
+                    <p>Chronische fysiotherapie is mogelijk wanneer jouw indicatie voor fysiotherapie staat beschreven op de zogenaamde "chronische lijst Borst". Je kunt bij jouw zorgverzekering navragen of jouw aandoening hierbij hoort, veelal weet je fysiotherapeut hier ook antwoord op te geven.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="grid-2">
+                <div>
+                    <h3>Verplicht eigen risico</h3>
+                    <p>Bij de basisverzekering is sprake van een verplicht eigen risico. Dat betekent dat, als je zorgkosten maakt (met uitzondering van o.a. huisartsenzorg), die onder de basisverzekeringen vallen, je eerst het eigen risico-bedrag zelf moet betalen. Dit eigen risico is voor 2024 vastgesteld op 385 euro per persoon vanaf 18 jaar. Wanneer je chronische fysiotherapie vergoedt krijgt vanuit je basisverzekering dien je met dit verplichte eigen risico rekening te houden. Het eigen risico geldt niet voor de kosten uit de aanvullende verzekering.</p>
+                </div>
+                <div>
+                    <h3>Factuur</h3>
+                    <p>Op het einde van de maand of het eind van het kwartaal krijg je van ons een factuur toegestuurd en die kun je indienen bij jouw zorgverzekering. De verzekeraar betaalt je de factuur volledig of gedeeltelijk terug (zie bovenstaande). Meestal is dit tussen de 70 en 85% van het tarief, het kan dus zo zijn dat je een paar euro zelf bij dient te betalen per behandeling. De factuur ontvang je op het einde van de maand en je krijgt 2 weken om deze over te maken. De meeste zorgverzekeraars maken binnen 10 dagen de rekening naar jou over. Je hoeft dus niet ter plekke te betalen en je betaalt de rekening (over het algemeen) pas als je het geld al hebt ontvangen van de zorgverzekeraar.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div style="padding: 2rem; background: rgba(236, 140, 35, 0.08); border-radius: 12px;">
+                <p style="margin: 0;">Voor een afspraak met De Kinesist is een verwijzing van een huisarts of specialist niet noodzakelijk. Je kunt jezelf aanmelden en een afspraak inplannen via deze website, door op de button maak een afspraak te klikken of telefonisch op 06-19196363.</p>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="https://agenda.crossuite.com/dekinesist" class="maak-afspraak-btn" target="_blank" rel="noopener noreferrer">MAAK AFSPRAAK</a>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Tarieven</h2>
+            <div class="tariff-list">
+                <div class="tariff-item">
+                    <div class="title">Screening, anamnese en onderzoek (45-60min) <span style="color: #ec8c23;">€57.50</span></div>
+                    <div class="description">Bezoek je zonder tussenkomst van de huisarts/ specialist de praktijk dan wordt er allereerst een screening uitgevoerd om te beoordelen of fysiotherapie de beste therapie is om je klachten/ blessure te behandelen. Naar aanleiding van de screening wordt je fysiotherapeutisch verder onderzocht</div>
+                </div>
+                <div class="tariff-item">
+                    <div class="title">Screening, anamnese, onderzoek en behandeling (60min) <span style="color: #ec8c23;">€72.50</span></div>
+                    <div class="description">Bezoek je zonder tussenkomst van de huisarts/ specialist de praktijk dan wordt er allereerst een screening uitgevoerd om te beoordelen of fysiotherapie de beste therapie is om je klachten/ blessure te behandelen. Naar aanleiding van de screening wordt je fysiotherapeutisch verder onderzocht en behandeld</div>
+                </div>
+                <div class="tariff-item">
+                    <div class="title">Intake en onderzoek na verwijzing (45-60min) <span style="color: #ec8c23;">€57.86</span></div>
+                    <div class="description">Na een doorverwijzing van een arts volgt er een vraaggesprek (anamnese) en het lichamelijk onderzoek. Er wordt samen met u een behandelplan opgesteld</div>
+                </div>
+                <div class="tariff-item">
+                    <div class="title">Zitting fysiotherapie <span style="color: #ec8c23;">€39.53</span></div>
+                    <div class="description">Tijdens de zitting fysiotherapie begeleidt, adviseert en/ of behandelt de fysio jou. De zitting is ongeacht de tijdsduur per behandeling</div>
+                </div>
+                <div class="tariff-item">
+                    <div class="title">Eenmalig fysiotherapeutisch onderzoek op schriftelijke verwijzing (60min) <span style="color: #ec8c23;">€70.50</span></div>
+                    <div class="description">Het eenmalig fysiotherapeutisch onderzoek heeft als doel om meer informatie te generen ten behoeven van de diagnose en prognose. Er moet wel sprake zijn van een gerichte schriftelijke vraag van de verwijzer. De fysiotherapeut rapporteert schriftelijk aan de verwijzer</div>
+                </div>
+                <div class="tariff-item">
+                    <div class="title">Telefonische zitting (max 15 min) <span style="color: #ec8c23;">€11.10</span></div>
+                    <div class="description"></div>
+                </div>
+                <div class="tariff-item">
+                    <div class="title">Uitbehandeling <span style="color: #ec8c23;">€57.31</span></div>
+                    <div class="description"></div>
+                </div>
+                <div class="tariff-item">
+                    <div class="title">Inspanningstest RAMP (60min) <span style="color: #ec8c23;">€87.50</span></div>
+                    <div class="description">Inspanningstest volgens het RAMP protocol. Inclusief vraaggesprek, vet%, gewicht, lengte.</div>
+                </div>
+                <div class="tariff-item">
+                    <div class="title">Inspanningstest vermogen (2 uur) <span style="color: #ec8c23;">€170</span></div>
+                    <div class="description">Inspanningstest om je vermogens te meten.</div>
+                </div>
+                <div class="tariff-item">
+                    <div class="title">BikeFit (2-3 uur) <span style="color: #ec8c23;">€186.50</span></div>
+                    <div class="description"></div>
+                </div>
+            </div>
+
+            <p style="margin-top: 2rem; font-style: italic; color: #666;">Meer informatie over de gang van zaken bij zorgverzekeraars en de reden waarom ik geen contracten met ze afsluit vindt u hier:</p>
+
+            <div style="margin-top: 1.5rem; display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                <a href="https://eenvandaag.avrotros.nl/artikelen/fysiotherapeuten-zijn-zorgverzekeraars-zat-115476" target="_blank" style="font-size: 0.9rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px;">Een Vandaag: Zorgverzekeraars</a>
+                <a href="https://eenvandaag.avrotros.nl/artikelen/fysiotherapeuten-zijn-wurgcontracten-zat-40770" target="_blank" style="font-size: 0.9rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px;">Een Vandaag: Wurgcontracten</a>
+                <a href="https://tvblik.nl/zorg-nu/11-oktober-2016" target="_blank" style="font-size: 0.9rem; color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px;">TV Blik: Zorg</a>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="https://agenda.crossuite.com/dekinesist" class="maak-afspraak-btn" target="_blank" rel="noopener noreferrer">MAAK AFSPRAAK</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="./js/main.js"></script>
+    <script>
+        // Tariff item toggle functionality with same-row neighbor expansion
+        document.querySelectorAll('.tariff-item').forEach((item, index) => {
+            item.addEventListener('click', function() {
+                const allItems = document.querySelectorAll('.tariff-item');
+                
+                // Toggle current item
+                this.classList.toggle('active');
+                
+                // In a 2-column grid, items on same row are: (0,1), (2,3), (4,5), (6,7), (8)
+                if (this.classList.contains('active')) {
+                    // If even index, open next item
+                    if (index % 2 === 0 && index + 1 < allItems.length) {
+                        allItems[index + 1].classList.add('active');
+                    }
+                    // If odd index, open previous item
+                    if (index % 2 === 1) {
+                        allItems[index - 1].classList.add('active');
+                    }
+                } else {
+                    // If closing, close all
+                    allItems.forEach(other => other.classList.remove('active'));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
