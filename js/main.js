@@ -108,3 +108,36 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Sort blog previews by publish date (newest first)
+document.addEventListener('DOMContentLoaded', function() {
+    function sortElementsByDate(containerSelector, itemSelector, getDateValue) {
+        const container = document.querySelector(containerSelector);
+        if (!container) return;
+
+        const items = Array.from(container.querySelectorAll(':scope > ' + itemSelector));
+        if (items.length < 2) return;
+
+        items.sort((a, b) => {
+            const dateA = getDateValue(a);
+            const dateB = getDateValue(b);
+            return dateB - dateA;
+        });
+
+        items.forEach(item => container.appendChild(item));
+    }
+
+    // Homepage cards: use <time datetime="YYYY-MM-DD">
+    sortElementsByDate('.blog-posts', 'a.blog-post', function(item) {
+        const timeEl = item.querySelector('time[datetime]');
+        const value = timeEl ? Date.parse(timeEl.getAttribute('datetime')) : NaN;
+        return Number.isNaN(value) ? 0 : value;
+    });
+
+    // Blog overview cards: prefer data-date="YYYY-MM-DD"
+    sortElementsByDate('.blog-list', 'a.blog-card', function(item) {
+        const dataDate = item.getAttribute('data-date');
+        const value = dataDate ? Date.parse(dataDate) : NaN;
+        return Number.isNaN(value) ? 0 : value;
+    });
+});

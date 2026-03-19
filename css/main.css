@@ -734,15 +734,16 @@ a {
   position: relative;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .blog-container {
     grid-template-columns: 1fr;
     display: flex;
     flex-direction: column-reverse;
+    gap: clamp(1.25rem, 3vw, 2rem);
   }
   
   .blog-image-container {
-    min-height: 400px;
+    min-height: 360px;
   }
 }
 
@@ -752,7 +753,7 @@ a {
   border-radius: 10px;
   transition: transform 0.3s ease;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: minmax(150px, 220px) 1fr;
   gap: clamp(1rem, 2vw, 1.5rem);
   align-items: flex-start;
 }
@@ -762,8 +763,10 @@ a {
 }
 
 .blog-post-image {
-  width: clamp(150px, 25vw, 250px);
-  height: auto;
+  width: 100%;
+  height: 100%;
+  min-height: 140px;
+  max-height: 180px;
   border-radius: 10px;
   object-fit: cover;
   display: block;
@@ -774,33 +777,36 @@ a {
   flex-direction: column;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .blog-post {
     grid-template-columns: 1fr;
   }
   
   .blog-post-image {
     width: 100%;
+    min-height: 180px;
+    max-height: 260px;
   }
 }
 
 .blog-post h3 {
-  font-size: clamp(1rem, 2.1vw, 1.1rem);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.7rem;
   color: #222;
+  line-height: 1.3;
 }
 
 .blog-post time {
   display: block;
-  font-size: 0.9rem;
+  font-size: clamp(0.85rem, 1.1vw, 0.95rem);
   color: #999;
-  margin-bottom: 1rem;
+  margin-bottom: 0.7rem;
 }
 
 .blog-post p {
-  font-size: clamp(0.8rem, 1.8vw, 0.8rem);
-  line-height: 1.1;
+  font-size: clamp(0.9rem, 1.15vw, 1rem);
+  line-height: 1.45;
   color: #555;
   margin-bottom: 0;
 }
